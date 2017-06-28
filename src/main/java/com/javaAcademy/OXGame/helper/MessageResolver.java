@@ -1,4 +1,4 @@
-package com.epam.OXGame.helper;
+package com.javaAcademy.OXGame.helper;
 
 import java.util.Locale;
 import java.util.ResourceBundle;

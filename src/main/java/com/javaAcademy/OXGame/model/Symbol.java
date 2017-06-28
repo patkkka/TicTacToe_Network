@@ -1,4 +1,4 @@
-package com.epam.OXGame.model;
+package com.javaAcademy.OXGame.model;
 
 public enum Symbol {
 	X("X"),

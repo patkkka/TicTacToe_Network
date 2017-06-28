@@ -1,4 +1,4 @@
-package com.epam.OXGame.controller;
+package com.javaAcademy.OXGame.controller;
 
 import java.util.Scanner;
 

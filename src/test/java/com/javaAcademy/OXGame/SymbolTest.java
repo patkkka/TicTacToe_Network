@@ -1,9 +1,10 @@
-package com.epam.OXGame;
+package com.javaAcademy.OXGame;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
-import com.epam.OXGame.model.Symbol;
+import com.javaAcademy.OXGame.model.Symbol;
+
+import static org.junit.Assert.*;
 
 public class SymbolTest {
 

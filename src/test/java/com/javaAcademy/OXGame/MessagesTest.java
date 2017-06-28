@@ -1,4 +1,4 @@
-package com.epam.OXGame;
+package com.javaAcademy.OXGame;
 
 import static org.junit.Assert.*;
 
@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 
 import org.junit.Test;
 
-import com.epam.OXGame.helper.MessageResolver;
+import com.javaAcademy.OXGame.helper.MessageResolver;
 
 public class MessagesTest {
 	
