@@ -1,5 +1,6 @@
 package com.javaAcademy.OXGame.businessLogic;
 
+import com.javaAcademy.OXGame.model.Direction;
 import com.javaAcademy.OXGame.model.GameArena;
 import com.javaAcademy.OXGame.model.Symbol;
 
@@ -15,34 +16,53 @@ public class CheckerAlgorithm {
 	}
 
 	public boolean win(GameArena arena, Symbol checkedSymbol) {
-		checkAscensionalDiagonal(checkedSymbol);
-		checkDescensionalDiagonal(checkedSymbol);
-		checkHorizontal(checkedSymbol);
-		checkVertical(checkedSymbol);
+		check(checkedSymbol);
 		return isWinner;
 	}
 	
-	private void checkHorizontal(Symbol userChar) {
+	private void check(Symbol userChar) {
 		for(int x = 1; x < arena.getXDimension(); x++) {
 			for(int y = 1; y < arena.getYDimension(); y++) {
 				try {
 					checkHoryzontalOrDiagonalFromPoint(x, y, true, userChar);
-				} catch(ArrayIndexOutOfBoundsException e) {
-					continue;
-				}
+				} catch(ArrayIndexOutOfBoundsException e) {}
+				try {
+					checkHoryzontalOrDiagonalFromPoint(x, y, false, userChar);
+				} catch(ArrayIndexOutOfBoundsException e) {}
+				try {
+					checkDiagonalFromPoint(x, y, true, userChar);
+				} catch(ArrayIndexOutOfBoundsException e) {}
+				try {
+					checkDiagonalFromPoint(x, y, false, userChar);
+				} catch(ArrayIndexOutOfBoundsException e) {}
 			}
 		}
 	}
 	
-	private void checkVertical(Symbol userChar) {
-		for(int x = 1; x < arena.getXDimension(); x++) {
-			for(int y = 1; y < arena.getYDimension(); y++) {
-				try {
-					checkHoryzontalOrDiagonalFromPoint(x, y, false, userChar);
-				} catch(ArrayIndexOutOfBoundsException e) {
-					continue;
-				}
+	private void checkFromPoint(int x, int y, Direction direction, Symbol symbol) {
+		int cnt = 0;
+		for(int i = 0; i < winCondition ; i++) {
+			if(symbol.equals(arena.getArena()[x][y])) {
+				cnt++;
 			}
+			if(direction.isVertical()) {
+				y++;
+			}
+			if(direction.isHoryzontal()) {
+				x++;
+			}
+			if(direction.isDescending()) {
+				x++;
+				y++;
+			}
+			if(direction.isAscensional()) {
+				x--;
+				y++;
+			}
+		}
+		if(cnt == winCondition) {
+			isWinner = true;
+			System.out.println("WYGRAŁ GRACZ: " + symbol.toString());
 		}
 	}
 	
@@ -61,30 +81,6 @@ public class CheckerAlgorithm {
 		if(cnt == winCondition) {
 			isWinner = true;
 			System.out.println("WYGRAŁ GRACZ: " + symbol.toString());
-		}
-	}
-	
-	
-	private void checkAscensionalDiagonal(Symbol checkedSymbol) {
-		for(int x = 1; x < arena.getXDimension(); x++) {
-			for(int y = 1; y < arena.getYDimension(); y++) {
-				try {
-					checkDiagonalFromPoint(x, y, false, checkedSymbol);
-				} catch(ArrayIndexOutOfBoundsException e) {
-					continue;
-				}
-			}
-		}
-	}
-	private void checkDescensionalDiagonal(Symbol checkedSymbol) {
-		for(int x = 1; x < arena.getXDimension(); x++) {
-			for(int y = 1; y < arena.getYDimension(); y++) {
-				try {
-					checkDiagonalFromPoint(x, y, true, checkedSymbol);
-				} catch(ArrayIndexOutOfBoundsException e) {
-					continue;
-				}
-			}
 		}
 	}
 	
