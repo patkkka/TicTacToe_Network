@@ -1,4 +1,4 @@
-package com.javaAcademy.OXGame;
+package com.javaAcademy.OXGame.model;
 
 public class Point {
 	int x;

@@ -38,6 +38,10 @@ public class GameArena {
 	}
 	
 	public int getAmountOfSymbols() {
-		return xDimension * yDimension;
+		return (xDimension-1) * (yDimension-1);
+	}
+	
+	public void setSymbol(Symbol symbol, Point point) {
+    	arena[point.getX()][point.getY()] = symbol;
 	}
 }

@@ -108,28 +108,3 @@ public class CheckerAlgorithm {
 	}
 }
 
-/*
- * 
-	//TODO napraw ciąglość gdy plansza >> warunek
-	private void checkHorizontalAndVertical1(Symbol userChar) {
-		for(int x = 1; x < arena.getXDimension(); x++) {
-			int cntVertical = 0;
-			int cntHorizontal = 0;
-			for(int y = 1; y < arena.getYDimension(); y++) {
-				if(arena.getArena()[x][y].equals(userChar)) {
-					cntVertical++;
-				}
-			}
-			for(int y = 1; y < arena.getYDimension(); y++) {
-				if(arena.getArena()[y][x].equals(userChar)) {
-					cntHorizontal++;
-				}
-			}
-			if(cntVertical == winCondition || cntHorizontal == winCondition) {
-				isWinner = true;
-				System.out.println("WYGRAŁ GRACZ: " + userChar);
-			}
-		}
-	}
- * 
- * */
