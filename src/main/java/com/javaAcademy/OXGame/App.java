@@ -40,15 +40,15 @@ public class App
     	
     	System.out.println("Choose how many charakters to win: ");
     	//TODO char series validation
-    	//final int charSeriesDim = Integer.parseInt(s.nextLine());
+    	final int charSeriesDim = Integer.parseInt(s.nextLine());
     	
-    	System.out.println("Choose who start: O or X:");
+    	//System.out.println("Choose who start: O or X:");
     	//TODO char validation
     	//String symbol = s.nextLine();
     	
     	//TODO create a game
     	Game game = new Game();
-    	game.startGame(yDim, xDim);
+    	game.startGame(yDim, xDim, charSeriesDim);
     	//TODO create symbols and players
     	//TODO create a board
     	//TODO create view 

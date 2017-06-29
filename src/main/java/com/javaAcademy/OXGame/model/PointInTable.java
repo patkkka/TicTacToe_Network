@@ -5,6 +5,7 @@ public class PointInTable {
 	private int xCoord;
 	private int yCoord;
 	private Symbol symbol;
+	private boolean isOccupied = false;
 	
 	public PointInTable(int x, int y) {
 		this.xCoord = x;
@@ -12,8 +13,12 @@ public class PointInTable {
 		symbol = Symbol.EMPTY;
 	}
 
-	public String getSymbol() {
-		return symbol.toString();
+	public Symbol getSymbol() {
+		return symbol;
+	}
+	
+	public void setSymbol() {
+		
 	}
 
 }
