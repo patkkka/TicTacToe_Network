@@ -5,14 +5,24 @@ import java.util.ResourceBundle;
 
 public class MessageResolver {
 	
-	private ResourceBundle messages;
+	private static MessageResolver instance;
 	
-	public MessageResolver(Locale locale) {
-		this.messages = ResourceBundle.getBundle("Messages", locale);
+	private Locale locale;
+	
+	private MessageResolver(Locale locale) {
+		this.locale = locale;
+	}
+
+	public static MessageResolver msgResolverInstance(Locale locale) {
+		instance = new MessageResolver(locale);
+		return instance;
+	}
+	
+	public static MessageResolver msgResolverInstance() {
+		return instance;
 	}
 
 	public String getMsgByKey(String key) {
-		return messages.getString(key);
+		return ResourceBundle.getBundle("Messages", locale).getString(key);
 	}
-
 }

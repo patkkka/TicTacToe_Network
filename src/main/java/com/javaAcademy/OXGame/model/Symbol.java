@@ -2,7 +2,8 @@ package com.javaAcademy.OXGame.model;
 
 public enum Symbol {
 	X("X"),
-	O("O");
+	O("O"),
+	EMPTY(" ");
 	
 	private String symbol;
 	
@@ -10,9 +11,8 @@ public enum Symbol {
 		this.symbol = symbol;
 	}
 
-	public String getValue() {
+	public String toString() {
 		return symbol;
 	}
-	
 	
 }

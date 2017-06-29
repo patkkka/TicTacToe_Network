@@ -9,7 +9,7 @@ public class Controller {
 		scanner = new Scanner(System.in);
 	}
 
-	public String getReturnInt() {
+	public String getReturn() {
 		return scanner.nextLine();
 	}
 }

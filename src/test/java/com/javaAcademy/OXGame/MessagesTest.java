@@ -1,14 +1,15 @@
 package com.javaAcademy.OXGame;
 
-import static org.junit.Assert.*;
+import org.testng.annotations.Test;
+import static org.testng.Assert.*;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import org.junit.Test;
 
 import com.javaAcademy.OXGame.helper.MessageResolver;
 
+@Test
 public class MessagesTest {
 	
 	private String language = new String("en");
@@ -27,7 +28,7 @@ public class MessagesTest {
 	public void testInternationalizationFromMessageResolver() {
 		Locale defaultLocale = new Locale(language, country);
 		
-		MessageResolver msgResolver = new MessageResolver(defaultLocale);
+		MessageResolver msgResolver = MessageResolver.msgResolverInstance(defaultLocale);
 		String key = "hello";
 		
 		assertEquals("Hello my friend!.", msgResolver.getMsgByKey(key));

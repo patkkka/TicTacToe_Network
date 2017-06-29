@@ -4,12 +4,14 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
+import com.javaAcademy.OXGame.helper.MessageResolver;
+
 
 public class App 
 {
     public static void main( String[] args )
-    {
-       /* String language = new String("en");
+    {/*
+        String language = new String("en");
         String country = new String("EN");
         
         String plLanguage = new String("pl");
@@ -18,18 +20,16 @@ public class App
         Locale defaultLocale = new Locale(language, country);
         Locale plLocale = new Locale(plLanguage, plCountry);
         
-        ResourceBundle messages = ResourceBundle.getBundle("Messages", defaultLocale);
-        System.out.println(messages.getString("hello"));
+		MessageResolver msgResolver = MessageResolver.msgResolverInstance(defaultLocale);
+        System.out.println(msgResolver.getMsgByKey("hello"));
         
-        ResourceBundle messagesPL = ResourceBundle.getBundle("Messages", plLocale);
-        System.out.println(messagesPL.getString("hello"));
 */
     	
     	System.out.println("Please choose the language/Wybierz język: 1 - English, 2 - Polish.");
     	Scanner s = new Scanner(System.in);
-    	final int lang = Integer.parseInt(s.nextLine());
+    	//final int lang = Integer.parseInt(s.nextLine());
     	//TODO choosing languange
-    	System.out.println("You choose English");
+    	System.out.println("You chose English");
     	
     	System.out.println("Choose board X dimension: ");
     	final int xDim = Integer.parseInt(s.nextLine());
@@ -40,15 +40,15 @@ public class App
     	
     	System.out.println("Choose how many charakters to win: ");
     	//TODO char series validation
-    	final int charSeriesDim = Integer.parseInt(s.nextLine());
+    	//final int charSeriesDim = Integer.parseInt(s.nextLine());
     	
     	System.out.println("Choose who start: O or X:");
     	//TODO char validation
-    	String symbol = s.nextLine();
+    	//String symbol = s.nextLine();
     	
     	//TODO create a game
     	Game game = new Game();
-    	game.startGame();
+    	game.startGame(yDim, xDim);
     	//TODO create symbols and players
     	//TODO create a board
     	//TODO create view 
