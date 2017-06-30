@@ -4,14 +4,14 @@ import java.util.Locale;
 
 public class GameSettings {
 	
-	private Symbol whoStarts;
+	private int whoStarts;
 	private int winningCondition;
 	private int xArenaDimension;
 	private int yArenaDimension;
 	private String language;
 	private int amountOfBattles;
 	
-	public GameSettings(Symbol whoStarts, int winningCondition, int xArenaDimension, 
+	public GameSettings(int whoStarts, int winningCondition, int xArenaDimension, 
 			int yArenaDimension, String language, int amountOfBattles) {
 		super();
 		this.whoStarts = whoStarts;
@@ -23,7 +23,10 @@ public class GameSettings {
 	}
 
 	public Symbol getWhoStarts() {
-		return whoStarts;
+		if(whoStarts == 1) {
+			return Symbol.O;
+		}
+		return Symbol.X;
 	}
 
 	public int getWinningCondition() {

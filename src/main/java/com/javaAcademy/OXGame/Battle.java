@@ -3,7 +3,9 @@ package com.javaAcademy.OXGame;
 import java.util.Scanner;
 
 import com.javaAcademy.OXGame.businessLogic.CheckerAlgorithm;
+import com.javaAcademy.OXGame.model.BattleResult;
 import com.javaAcademy.OXGame.model.GameArena;
+import com.javaAcademy.OXGame.model.GameSettings;
 import com.javaAcademy.OXGame.model.Point;
 import com.javaAcademy.OXGame.model.Symbol;
 import com.javaAcademy.OXGame.view.TablePrinter;
@@ -11,30 +13,42 @@ import com.javaAcademy.OXGame.view.TablePrinter;
 public class Battle {
 	
 	private static Scanner s;
+	private GameSettings settings;
 
-	public void startGame(int x, int y, int charSeriesDim) {
-		GameArena gameArena = GameArena.getGameArena(x,y);
-		CheckerAlgorithm checker = new CheckerAlgorithm(gameArena, charSeriesDim);
+	public Battle(GameSettings settings) {
+		this.settings = settings;
+	}
+
+	public BattleResult doBattle() {
+		GameArena gameArena = GameArena.getGameArena(settings.getXArenaDimension(), settings.getYArenaDimension());
+		CheckerAlgorithm checker = new CheckerAlgorithm(gameArena, settings.getWinningCondition());
 		boolean someoneWin = false;
 		int cnt = 0;
 		TablePrinter.printArena(gameArena); 
+		Symbol symbol = null;
 		do{
 			if(cnt%2 == 0) {
-				gameArena.setSymbol(Symbol.O, isEmpty(gameArena, Symbol.O));
-				someoneWin = checker.win(gameArena, Symbol.O);
+				symbol = settings.getWhoStarts();
 			} else {
-				gameArena.setSymbol(Symbol.X, isEmpty(gameArena, Symbol.X));
-				someoneWin = checker.win(gameArena, Symbol.X);
+				symbol = symbol.getOppositeSymbol(settings.getWhoStarts());
 			}
-			
+			someoneWin = doMove(symbol, gameArena, checker);
+			if(someoneWin) {
+				System.out.println("Battle winner: " + symbol.toString());
+				return new BattleResult(symbol, symbol.getOppositeSymbol(symbol), true);
+			}
 	    	cnt++;
 	    	TablePrinter.printArena(gameArena); 
 		} while(cnt < gameArena.getAmountOfSymbols() && !someoneWin);
-		if(!someoneWin) {
-			System.out.println("\nDRAW!");
-		}
+		System.out.println("\nDRAW!");
+		return new BattleResult(Symbol.O, Symbol.X, false);
 	}
 	
+	private boolean doMove(Symbol symbol, GameArena gameArena, CheckerAlgorithm checker) {
+		gameArena.setSymbol(symbol, isEmpty(gameArena, symbol));
+		return checker.win(gameArena, symbol);
+	}
+
 	private static Point isEmpty(GameArena arena, Symbol symbol) {
 		s = new Scanner(System.in);
 		System.out.println("\nNow player: " + symbol + " move.");

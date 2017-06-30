@@ -56,7 +56,6 @@ public class CheckerAlgorithm {
 		}
 		if(cnt == winCondition) {
 			isWinner = true;
-			System.out.println("WYGRAŁ GRACZ: " + symbol.toString());
 		}
 	}
 }

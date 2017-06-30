@@ -15,4 +15,11 @@ public enum Symbol {
 		return symbol;
 	}
 	
+	public Symbol getOppositeSymbol(Symbol toSymbol) {
+		if(toSymbol.equals(X)) {
+			return O;
+		}
+		return X;
+	}
+	
 }

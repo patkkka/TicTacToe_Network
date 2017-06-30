@@ -69,7 +69,7 @@ public class App {
     	
     	System.out.println("Choose who start: press 1 if O, press 2 if X:");
     	//TODO char validation
-    	final int whoStart = Integer.parseInt(s.nextLine());
-		return new GameSettings(Symbol.O, charSeriesDim, xDim, yDim, "en", 3);
+    	final int whoStarts = Integer.parseInt(s.nextLine());
+		return new GameSettings(whoStarts, charSeriesDim, xDim, yDim, "en", 3);
     }
 }
