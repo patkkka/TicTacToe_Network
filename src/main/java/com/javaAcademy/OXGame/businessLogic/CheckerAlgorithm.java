@@ -2,7 +2,12 @@ package com.javaAcademy.OXGame.businessLogic;
 
 import com.javaAcademy.OXGame.model.Direction;
 import com.javaAcademy.OXGame.model.GameArena;
+import com.javaAcademy.OXGame.model.Point;
 import com.javaAcademy.OXGame.model.Symbol;
+import com.javaAcademy.OXGame.model.directions.AscensionalDirection;
+import com.javaAcademy.OXGame.model.directions.DescendingDirection;
+import com.javaAcademy.OXGame.model.directions.HoryzontalDirection;
+import com.javaAcademy.OXGame.model.directions.VerticalDirection;
 
 public class CheckerAlgorithm {
 	
@@ -24,16 +29,16 @@ public class CheckerAlgorithm {
 		for(int x = 1; x < arena.getXDimension(); x++) {
 			for(int y = 1; y < arena.getYDimension(); y++) {
 				try {
-					checkFromPoint(x, y, Direction.vertical(), userChar);
+					checkFromPoint(x, y, new VerticalDirection(), userChar);
 				} catch(ArrayIndexOutOfBoundsException e) {}
 				try {
-					checkFromPoint(x, y, Direction.horyzontal(), userChar);
+					checkFromPoint(x, y, new HoryzontalDirection(), userChar);
 				} catch(ArrayIndexOutOfBoundsException e) {}
 				try {
-					checkFromPoint(x, y, Direction.descending(), userChar);
+					checkFromPoint(x, y, new DescendingDirection(), userChar);
 				} catch(ArrayIndexOutOfBoundsException e) {}
 				try {
-					checkFromPoint(x, y, Direction.ascensional(), userChar);
+					checkFromPoint(x, y, new AscensionalDirection(), userChar);
 				} catch(ArrayIndexOutOfBoundsException e) {}
 			}
 		}
@@ -45,20 +50,9 @@ public class CheckerAlgorithm {
 			if(symbol.equals(arena.getArena()[x][y])) {
 				cnt++;
 			}
-			if(direction.isVertical()) {
-				y++;
-			}
-			if(direction.isHoryzontal()) {
-				x++;
-			}
-			if(direction.isDescending()) {
-				x++;
-				y++;
-			}
-			if(direction.isAscensional()) {
-				x--;
-				y++;
-			}
+			Point point = direction.getNextPoint(x, y);
+			x = point.getX();
+			y = point.getY();
 		}
 		if(cnt == winCondition) {
 			isWinner = true;

@@ -8,13 +8,13 @@ public class Point {
 		x=x2;
 		y=y2;
 	}
-	int getX() {
+	public int getX() {
 		return x;
 	}
 	void setX(int x) {
 		this.x = x;
 	}
-	int getY() {
+	public int getY() {
 		return y;
 	}
 	void setY(int y) {

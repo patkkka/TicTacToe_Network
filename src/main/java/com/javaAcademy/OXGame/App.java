@@ -5,12 +5,18 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 
 import com.javaAcademy.OXGame.helper.MessageResolver;
+import com.javaAcademy.OXGame.model.GameSettings;
+import com.javaAcademy.OXGame.model.GameStatistics;
+import com.javaAcademy.OXGame.model.Player;
+import com.javaAcademy.OXGame.model.Symbol;
 
 
-public class App 
-{
-    public static void main( String[] args )
-    {/*
+public class App {
+	
+	Scanner s = new Scanner(System.in);
+	
+    public static void main( String[] args ) {
+    	/*
         String language = new String("en");
         String country = new String("EN");
         
@@ -23,10 +29,29 @@ public class App
 		MessageResolver msgResolver = MessageResolver.msgResolverInstance(defaultLocale);
         System.out.println(msgResolver.getMsgByKey("hello"));
         
-*/
+*/	
+    	App app = new App();
+    	GameSettings settings = app.getGameSettings();
+    	GameStatistics statistics = app.getGameStatistics();
     	
-    	System.out.println("Please choose the language/Wybierz język: 1 - English, 2 - Polish.");
-    	Scanner s = new Scanner(System.in);
+    	Game game = new Game(settings, statistics);
+    }
+    
+    private GameStatistics getGameStatistics() {
+    	
+    	System.out.println("Please enter O player nickname: ");
+    	String oNickname = s.nextLine();
+    	
+    	System.out.println("Please enter X player nickname: ");
+    	String xNickname = s.nextLine();
+
+    	Player xPlayer = new Player(xNickname, Symbol.X);
+    	Player oPlayer = new Player(oNickname, Symbol.O);
+    	return new GameStatistics(xPlayer, oPlayer);
+    }
+    
+    private GameSettings getGameSettings() {
+    	//System.out.println("Please choose the language/Wybierz język: 1 - English, 2 - Polish.");
     	//final int lang = Integer.parseInt(s.nextLine());
     	//TODO choosing languange
     	System.out.println("You chose English");
@@ -42,23 +67,9 @@ public class App
     	//TODO char series validation
     	final int charSeriesDim = Integer.parseInt(s.nextLine());
     	
-    	//System.out.println("Choose who start: O or X:");
+    	System.out.println("Choose who start: press 1 if O, press 2 if X:");
     	//TODO char validation
-    	//String symbol = s.nextLine();
-    	
-    	//TODO create a game
-    	Game game = new Game();
-    	game.startGame(yDim, xDim, charSeriesDim);
-    	//TODO create symbols and players
-    	//TODO create a board
-    	//TODO create view 
-    	//TODO create game statistics 
-    	
-    	//TODO create one battle
-    	//TODO create winner finder algo
-    	//TODO create battle result
-    	
-    	
-    	
+    	final int whoStart = Integer.parseInt(s.nextLine());
+		return new GameSettings(Symbol.O, charSeriesDim, xDim, yDim, "en", 3);
     }
 }
