@@ -33,3 +33,5 @@ target/*
 .project
 .classpath
 test-output/*
+.idea/*
+OXGame.iml

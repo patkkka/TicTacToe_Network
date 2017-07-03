@@ -1,7 +1,5 @@
 package com.javaAcademy.OXGame.model;
 
-import java.util.Locale;
-
 public class GameSettings {
 	
 	private int whoStarts;

@@ -3,6 +3,7 @@ package com.javaAcademy.OXGame;
 import java.util.Scanner;
 
 import com.javaAcademy.OXGame.businessLogic.CheckerAlgorithm;
+import com.javaAcademy.OXGame.helper.MessageResolver;
 import com.javaAcademy.OXGame.model.BattleResult;
 import com.javaAcademy.OXGame.model.GameArena;
 import com.javaAcademy.OXGame.model.GameSettings;
@@ -22,7 +23,6 @@ public class Battle {
 	public BattleResult doBattle() {
 		GameArena gameArena = GameArena.getGameArena(settings.getXArenaDimension(), settings.getYArenaDimension());
 		CheckerAlgorithm checker = new CheckerAlgorithm(gameArena, settings.getWinningCondition());
-		boolean someoneWin = false;
 		int cnt = 0;
 		TablePrinter.printArena(gameArena); 
 		Symbol symbol = null;
@@ -32,19 +32,20 @@ public class Battle {
 			} else {
 				symbol = symbol.getOppositeSymbol(settings.getWhoStarts());
 			}
-			someoneWin = doMove(symbol, gameArena, checker);
-			if(someoneWin) {
-				System.out.println("Battle winner: " + symbol.toString());
+			
+			if(checkNextMove(symbol, gameArena, checker)) {
+				MessageResolver msg = MessageResolver.msgResolverInstance();
+				System.out.println(msg.getMsgByKey("empty.battleWinner")+ symbol.toString());
 				return new BattleResult(symbol, symbol.getOppositeSymbol(symbol), true);
 			}
 	    	cnt++;
 	    	TablePrinter.printArena(gameArena); 
-		} while(cnt < gameArena.getAmountOfSymbols() && !someoneWin);
+		} while(cnt < gameArena.getAmountOfSymbols());
 		System.out.println("\nDRAW!");
 		return new BattleResult(Symbol.O, Symbol.X, false);
 	}
 	
-	private boolean doMove(Symbol symbol, GameArena gameArena, CheckerAlgorithm checker) {
+	private boolean checkNextMove(Symbol symbol, GameArena gameArena, CheckerAlgorithm checker) {
 		gameArena.setSymbol(symbol, isEmpty(gameArena, symbol));
 		return checker.win(gameArena, symbol);
 	}

@@ -1,10 +1,10 @@
 package com.javaAcademy.OXGame.exceptions;
 
-public class WinningConditionBiggerThanArenaDimensionException extends RuntimeException{
+public class WinningConditionTooBigException extends RuntimeException{
 
 	private static final long serialVersionUID = 477324754522419687L;
 
-	public WinningConditionBiggerThanArenaDimensionException(String message) {
+	public WinningConditionTooBigException(String message) {
 		super(message);
 	}
 }

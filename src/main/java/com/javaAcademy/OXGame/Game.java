@@ -6,7 +6,7 @@ import com.javaAcademy.OXGame.model.GameStatistics;
 
 public class Game {
 	
-	public Game(GameSettings settings, GameStatistics statistics) {
+	private Game(GameSettings settings, GameStatistics statistics) {
 		int cnt = 0;
 		do {
 			Battle battle = new Battle(settings);
@@ -16,5 +16,9 @@ public class Game {
 			cnt++;
 		} while (cnt < settings.getAmountOfBattles());
 		statistics.summarizeGame();
+	}
+	
+	public static Game startGame(GameSettings settings, GameStatistics statistics) {
+		return new Game(settings, statistics);
 	}
 }

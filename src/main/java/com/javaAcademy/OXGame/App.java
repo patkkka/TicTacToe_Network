@@ -16,29 +16,31 @@ public class App {
 	Scanner s = new Scanner(System.in);
 	
     public static void main( String[] args ) {
-    	/*
-        String language = new String("en");
-        String country = new String("EN");
-        
-        String plLanguage = new String("pl");
-        String plCountry = new String("PL");
-        
-        Locale defaultLocale = new Locale(language, country);
-        Locale plLocale = new Locale(plLanguage, plCountry);
-        
-		MessageResolver msgResolver = MessageResolver.msgResolverInstance(defaultLocale);
-        System.out.println(msgResolver.getMsgByKey("hello"));
-        
-*/	
     	App app = new App();
+    	
+    	System.out.println("Please choose the language/Wybierz język: 1 - English, 2 - Polish.");
+    	final int lang = Integer.parseInt(app.s.nextLine());
+    	app.createMessageResolver(lang);
     	GameSettings settings = app.getGameSettings();
     	GameStatistics statistics = app.getGameStatistics();
     	
-    	Game game = new Game(settings, statistics);
+    	Game.startGame(settings, statistics);
     }
     
-    private GameStatistics getGameStatistics() {
-    	
+    private void createMessageResolver(int langNumber) {
+		switch(langNumber) {
+			case 1:
+				MessageResolver.createMessageResolver(new Locale("en", "EN"));
+				break;
+			case 2:
+				MessageResolver.createMessageResolver(new Locale("pl", "PL"));
+				break;
+			default:
+				MessageResolver.createMessageResolver(new Locale("en", "EN"));
+		}
+	}
+
+	private GameStatistics getGameStatistics() {
     	System.out.println("Please enter O player nickname: ");
     	String oNickname = s.nextLine();
     	
@@ -51,19 +53,18 @@ public class App {
     }
     
     private GameSettings getGameSettings() {
-    	//System.out.println("Please choose the language/Wybierz język: 1 - English, 2 - Polish.");
-    	//final int lang = Integer.parseInt(s.nextLine());
+    	MessageResolver msgResolver = MessageResolver.msgResolverInstance();
     	//TODO choosing languange
-    	System.out.println("You chose English");
+    	System.out.println(msgResolver.getMsgByKey("empty.chosenLanguage"));
     	
-    	System.out.println("Choose board X dimension: ");
+    	System.out.println(msgResolver.getMsgByKey("int.xDimension"));
     	final int xDim = Integer.parseInt(s.nextLine());
     	
     	System.out.println("Choose board Y dimension: ");
     	final int yDim = Integer.parseInt(s.nextLine());
     	//TODO board dimension validation
     	
-    	System.out.println("Choose how many charakters to win: ");
+    	System.out.println("Choose how many characters to win: ");
     	//TODO char series validation
     	final int charSeriesDim = Integer.parseInt(s.nextLine());
     	

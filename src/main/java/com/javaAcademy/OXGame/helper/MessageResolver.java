@@ -13,7 +13,7 @@ public class MessageResolver {
 		this.locale = locale;
 	}
 
-	public static MessageResolver msgResolverInstance(Locale locale) {
+	public static MessageResolver createMessageResolver(Locale locale) {
 		instance = new MessageResolver(locale);
 		return instance;
 	}
@@ -23,6 +23,7 @@ public class MessageResolver {
 	}
 
 	public String getMsgByKey(String key) {
+		//TODO data checker by key beginning
 		return ResourceBundle.getBundle("Messages", locale).getString(key);
 	}
 }
