@@ -28,7 +28,7 @@ public class MessagesTest {
 	public void testInternationalizationFromMessageResolver() {
 		Locale defaultLocale = new Locale(language, country);
 		
-		MessageResolver msgResolver = MessageResolver.createMessageResolver(defaultLocale);
+		MessageResolver msgResolver = new MessageResolver(defaultLocale);
 		String key = "hello";
 		
 		assertEquals("Hello my friend!.", msgResolver.getMsgByKey(key));

@@ -1,5 +1,8 @@
 package com.javaAcademy.OXGame.model;
 
+import com.javaAcademy.OXGame.helper.MessageResolver;
+import com.javaAcademy.OXGame.helper.UserIO;
+
 public class GameSettings {
 	
 	private int whoStarts;
@@ -45,5 +48,23 @@ public class GameSettings {
 	
 	public int getAmountOfBattles() {
 		return amountOfBattles;
+	}
+
+	public static GameSettings getGameSettings(PlayerSettings playerSettings) {
+		UserIO io = playerSettings.getUserIo();
+		MessageResolver msg = playerSettings.getMsgResolver();
+		//TODO choosing languange
+		io.showUserMessage(msg.getMsgByKey("empty.chosenLanguage"));
+
+		final int xDim = Integer.parseInt(io.userMessageWithInput(msg.getMsgByKey("int.xDimension")));
+		final int yDim = Integer.parseInt(io.userMessageWithInput(msg.getMsgByKey("int.yDimension")));
+		//TODO board dimension validation
+
+		final int charSeriesDim = Integer.parseInt(io.userMessageWithInput(msg.getMsgByKey("int.winningCondition")));
+		//TODO char series validation
+
+		final int whoStarts = Integer.parseInt(io.userMessageWithInput(msg.getMsgByKey("int.whoStarts")));
+		//TODO char validation
+		return new GameSettings(whoStarts, charSeriesDim, xDim, yDim, "en", 3);
 	}
 }

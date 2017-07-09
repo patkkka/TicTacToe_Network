@@ -1,4 +1,4 @@
-package com.javaAcademy.OXGame;
+package com.javaAcademy.OXGame.helper;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -22,6 +22,7 @@ public class UserIO {
     public UserIO(PrintStream printStream, InputStream inStream) {
         this.printStream = printStream;
         this.inStream = inStream;
+        this.scanner = new Scanner(inStream);
     }
 
     public void showUserMessage(String message){
