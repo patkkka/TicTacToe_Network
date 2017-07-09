@@ -1,8 +1,10 @@
 package com.javaAcademy.OXGame.model;
 
 import com.javaAcademy.OXGame.helper.MessageResolver;
-import com.javaAcademy.OXGame.helper.UserIO;
+import com.javaAcademy.OXGame.io.IO;
+import com.javaAcademy.OXGame.io.UserIO;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,33 +32,33 @@ public class GameStatistics {
 	}
 
 	public void showStatistics(PlayerSettings playerSettings) {
-		UserIO io = playerSettings.getUserIo();
+		IO io = playerSettings.getIO();
 		MessageResolver msg = playerSettings.getMsgResolver();
-		io.showUserMessage(msg.getMsgByKey("empty.battleResult.showStatistic.head"));
-		io.showUserMessage(msg.getMsgByKey("empty.battleResult.showStatistic.playerO") + players.get(Symbol.O).getAmountOfPoints());
-		io.showUserMessage(msg.getMsgByKey("empty.battleResult.showStatistic.playerX") + players.get(Symbol.X).getAmountOfPoints());
+		io.write(msg.getMsgByKey("empty.battleResult.showStatistic.head"));
+		io.write(msg.getMsgByKey("empty.battleResult.showStatistic.playerO") + players.get(Symbol.O).getAmountOfPoints());
+		io.write(msg.getMsgByKey("empty.battleResult.showStatistic.playerX") + players.get(Symbol.X).getAmountOfPoints());
 	}
 
 	public void summarizeGame(PlayerSettings playerSettings) {
-		UserIO io = playerSettings.getUserIo();
+		IO io = playerSettings.getIO();
 		MessageResolver msg = playerSettings.getMsgResolver();
-		io.showUserMessage(msg.getMsgByKey("empty.matchResult.head"));
+		io.write(msg.getMsgByKey("empty.matchResult.head"));
 		int pointsPlayerX = players.get(Symbol.X).getAmountOfPoints();
 		int pointsPlayerO = players.get(Symbol.O).getAmountOfPoints();
 		if(pointsPlayerO > pointsPlayerX) {
-			io.showUserMessage(msg.getMsgByKey("empty.gameResult.playerOwin"));
+			io.write(msg.getMsgByKey("empty.gameResult.playerOwin"));
 		} else if(pointsPlayerX > pointsPlayerO) {
-			io.showUserMessage(msg.getMsgByKey("empty.gameResult.playerXWin"));
+			io.write(msg.getMsgByKey("empty.gameResult.playerXWin"));
 		} else {
-			io.showUserMessage(msg.getMsgByKey("empty.gameResult.draw"));
+			io.write(msg.getMsgByKey("empty.gameResult.draw"));
 		}
 	}
 
-	public static GameStatistics getGameStatistics(PlayerSettings playerSettings) {
-		UserIO io = playerSettings.getUserIo();
+	public static GameStatistics getGameStatistics(PlayerSettings playerSettings) throws IOException{
+		IO io = playerSettings.getIO();
 		MessageResolver msg = playerSettings.getMsgResolver();
-		String oNickname = io.userMessageWithInput(msg.getMsgByKey("string.playerONickname"));
-		String xNickname = io.userMessageWithInput(msg.getMsgByKey("string.playerXNickname"));
+		String oNickname = io.writeAndRead(msg.getMsgByKey("string.playerONickname"));
+		String xNickname = io.writeAndRead(msg.getMsgByKey("string.playerXNickname"));
 
 		Player xPlayer = new Player(xNickname, Symbol.X);
 		Player oPlayer = new Player(oNickname, Symbol.O);

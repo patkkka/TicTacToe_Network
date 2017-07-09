@@ -1,21 +1,21 @@
 package com.javaAcademy.OXGame.model;
 
 import com.javaAcademy.OXGame.helper.MessageResolver;
-import com.javaAcademy.OXGame.helper.UserIO;
+import com.javaAcademy.OXGame.io.IO;
 
 /**
  * Created by patrycja on 09.07.17.
  */
 public class PlayerSettings {
-    private UserIO io;
+    private IO io;
     private MessageResolver msg;
 
-    public PlayerSettings(UserIO io, MessageResolver msg) {
+    public PlayerSettings(IO io, MessageResolver msg) {
         this.io = io;
         this.msg = msg;
     }
 
-    public UserIO getUserIo() {
+    public IO getIO() {
         return io;
     }
 

@@ -1,7 +1,10 @@
 package com.javaAcademy.OXGame.model;
 
 import com.javaAcademy.OXGame.helper.MessageResolver;
-import com.javaAcademy.OXGame.helper.UserIO;
+import com.javaAcademy.OXGame.io.IO;
+import com.javaAcademy.OXGame.io.UserIO;
+
+import java.io.IOException;
 
 public class GameSettings {
 	
@@ -50,20 +53,20 @@ public class GameSettings {
 		return amountOfBattles;
 	}
 
-	public static GameSettings getGameSettings(PlayerSettings playerSettings) {
-		UserIO io = playerSettings.getUserIo();
+	public static GameSettings getGameSettings(PlayerSettings playerSettings) throws IOException{
+		IO io = playerSettings.getIO();
 		MessageResolver msg = playerSettings.getMsgResolver();
 		//TODO choosing languange
-		io.showUserMessage(msg.getMsgByKey("empty.chosenLanguage"));
+		io.write(msg.getMsgByKey("empty.chosenLanguage"));
 
-		final int xDim = Integer.parseInt(io.userMessageWithInput(msg.getMsgByKey("int.xDimension")));
-		final int yDim = Integer.parseInt(io.userMessageWithInput(msg.getMsgByKey("int.yDimension")));
+		final int xDim = Integer.parseInt(io.writeAndRead(msg.getMsgByKey("int.xDimension")));
+		final int yDim = Integer.parseInt(io.writeAndRead(msg.getMsgByKey("int.yDimension")));
 		//TODO board dimension validation
 
-		final int charSeriesDim = Integer.parseInt(io.userMessageWithInput(msg.getMsgByKey("int.winningCondition")));
+		final int charSeriesDim = Integer.parseInt(io.writeAndRead(msg.getMsgByKey("int.winningCondition")));
 		//TODO char series validation
 
-		final int whoStarts = Integer.parseInt(io.userMessageWithInput(msg.getMsgByKey("int.whoStarts")));
+		final int whoStarts = Integer.parseInt(io.writeAndRead(msg.getMsgByKey("int.whoStarts")));
 		//TODO char validation
 		return new GameSettings(whoStarts, charSeriesDim, xDim, yDim, "en", 3);
 	}
