@@ -34,14 +34,17 @@ public class TicTacToeClient {
 
 //        netIO = new NetworkIO(new BufferedReader(new InputStreamReader(System.in)), new PrintWriter(System.out));
 
-        // Consume the initial welcoming messages from the server
-        for (int i = 0; i < 3; i++) {
-            userIO.write(netIO.read());
-        }
+        String responseRequiredPrefix = "RESPONSE_REQUIRED";
+        String noResponsePrefix = "NO_RESPONSE";
 
         while(true){
             String input = netIO.read();
-
+            if(input.startsWith(noResponsePrefix)){
+                userIO.write(input.substring(noResponsePrefix.length()));
+            }
+            if (input.startsWith(responseRequiredPrefix)){
+                netIO.write(userIO.writeAndRead(input.substring(responseRequiredPrefix.length())));
+            }
         }
     }
 

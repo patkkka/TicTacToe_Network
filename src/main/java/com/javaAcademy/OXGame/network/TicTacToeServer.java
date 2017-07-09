@@ -2,6 +2,7 @@ package com.javaAcademy.OXGame.network;
 
 import com.javaAcademy.OXGame.helper.MessageResolver;
 import com.javaAcademy.OXGame.io.NetworkIO;
+import com.javaAcademy.OXGame.io.ServerNetworkIO;
 import com.javaAcademy.OXGame.io.UserIO;
 import com.javaAcademy.OXGame.model.GameSettings;
 import com.javaAcademy.OXGame.model.GameStatistics;
@@ -39,7 +40,7 @@ public class TicTacToeServer {
         private static class PlayerHandler extends Thread {
             private Socket socket;
             private int clientNumber;
-            private NetworkIO netIO;
+            private ServerNetworkIO netIO;
             private GameSettings settings;
             private GameStatistics statistics;
             private PlayerSettings playerSettings;
@@ -58,7 +59,7 @@ public class TicTacToeServer {
              */
             public void run() {
                 try {
-                    netIO = new NetworkIO(new BufferedReader(new InputStreamReader(socket.getInputStream())),
+                    netIO = new ServerNetworkIO(new BufferedReader(new InputStreamReader(socket.getInputStream())),
                             new PrintWriter(socket.getOutputStream(), true));
 
                     // Send a welcome message to the client.
@@ -68,7 +69,7 @@ public class TicTacToeServer {
                             "Please choose the language/Wybierz język: 1 - English, 2 - Polish"));
                     UserIO io = new UserIO(System.out,System.in);
                     MessageResolver msg = MessageResolver.createMessageResolver(lang);
-                    playerSettings = new PlayerSettings(io, msg);
+                    playerSettings = new PlayerSettings(netIO, msg);
 
                     if(settings == null){
                         GameSettings settings = GameSettings.getGameSettings(playerSettings);
