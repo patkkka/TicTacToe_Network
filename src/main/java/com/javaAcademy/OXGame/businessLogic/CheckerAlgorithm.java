@@ -4,7 +4,7 @@ import com.javaAcademy.OXGame.model.Direction;
 import com.javaAcademy.OXGame.model.GameArena;
 import com.javaAcademy.OXGame.model.Point;
 import com.javaAcademy.OXGame.model.Symbol;
-import com.javaAcademy.OXGame.model.directions.AscensionalDirection;
+import com.javaAcademy.OXGame.model.directions.AscendingDirection;
 import com.javaAcademy.OXGame.model.directions.DescendingDirection;
 import com.javaAcademy.OXGame.model.directions.HoryzontalDirection;
 import com.javaAcademy.OXGame.model.directions.VerticalDirection;
@@ -38,7 +38,7 @@ public class CheckerAlgorithm {
 					checkFromPoint(x, y, new DescendingDirection(), userChar);
 				} catch(ArrayIndexOutOfBoundsException e) {}
 				try {
-					checkFromPoint(x, y, new AscensionalDirection(), userChar);
+					checkFromPoint(x, y, new AscendingDirection(), userChar);
 				} catch(ArrayIndexOutOfBoundsException e) {}
 			}
 		}

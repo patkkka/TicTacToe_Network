@@ -1,5 +1,8 @@
 package com.javaAcademy.OXGame.model;
 
+import com.javaAcademy.OXGame.helper.MessageResolver;
+import com.javaAcademy.OXGame.helper.UserIO;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,22 +29,37 @@ public class GameStatistics {
 		}
 	}
 
-	public void showStatistics() {
-		System.out.println("Statistics:");
-		System.out.println("	Player O: " + players.get(Symbol.O).getAmountOfPoints());
-		System.out.println("	Player X: " + players.get(Symbol.X).getAmountOfPoints());
+	public void showStatistics(PlayerSettings playerSettings) {
+		UserIO io = playerSettings.getUserIo();
+		MessageResolver msg = playerSettings.getMsgResolver();
+		io.showUserMessage(msg.getMsgByKey("empty.battleResult.showStatistic.head"));
+		io.showUserMessage(msg.getMsgByKey("empty.battleResult.showStatistic.playerO") + players.get(Symbol.O).getAmountOfPoints());
+		io.showUserMessage(msg.getMsgByKey("empty.battleResult.showStatistic.playerX") + players.get(Symbol.X).getAmountOfPoints());
 	}
 
-	public void summarizeGame() {
-		System.out.println("\n\n MATCH RESULT: ");
+	public void summarizeGame(PlayerSettings playerSettings) {
+		UserIO io = playerSettings.getUserIo();
+		MessageResolver msg = playerSettings.getMsgResolver();
+		io.showUserMessage(msg.getMsgByKey("empty.matchResult.head"));
 		int pointsPlayerX = players.get(Symbol.X).getAmountOfPoints();
 		int pointsPlayerO = players.get(Symbol.O).getAmountOfPoints();
 		if(pointsPlayerO > pointsPlayerX) {
-			System.out.println("	Player O win game!");
+			io.showUserMessage(msg.getMsgByKey("empty.gameResult.playerOwin"));
 		} else if(pointsPlayerX > pointsPlayerO) {
-			System.out.println("	Player X win game!");
+			io.showUserMessage(msg.getMsgByKey("empty.gameResult.playerXWin"));
 		} else {
-			System.out.println("	Draw!");
+			io.showUserMessage(msg.getMsgByKey("empty.gameResult.draw"));
 		}
+	}
+
+	public static GameStatistics getGameStatistics(PlayerSettings playerSettings) {
+		UserIO io = playerSettings.getUserIo();
+		MessageResolver msg = playerSettings.getMsgResolver();
+		String oNickname = io.userMessageWithInput(msg.getMsgByKey("string.playerONickname"));
+		String xNickname = io.userMessageWithInput(msg.getMsgByKey("string.playerXNickname"));
+
+		Player xPlayer = new Player(xNickname, Symbol.X);
+		Player oPlayer = new Player(oNickname, Symbol.O);
+		return new GameStatistics(xPlayer, oPlayer);
 	}
 }
