@@ -6,6 +6,7 @@ import com.javaAcademy.OXGame.io.ServerNetworkIO;
 import com.javaAcademy.OXGame.io.UserIO;
 import com.javaAcademy.OXGame.model.GameSettings;
 import com.javaAcademy.OXGame.model.GameStatistics;
+import com.javaAcademy.OXGame.model.Player;
 import com.javaAcademy.OXGame.model.PlayerSettings;
 
 import java.io.*;
@@ -32,11 +33,6 @@ public class TicTacToeServer {
             }
         }
 
-        /**
-         * A private thread to handle capitalization requests on a particular
-         * socket.  The client terminates the dialogue by sending a single line
-         * containing only a period.
-         */
         private static class PlayerHandler extends Thread {
             private Socket socket;
             private int clientNumber;
@@ -52,11 +48,7 @@ public class TicTacToeServer {
                 this.statistics = statistics;
                 log("New connection with client # " + clientNumber + " at " + socket);
             }
-            /**
-             * Services this thread's client by first sending the
-             * client a welcome message then repeatedly reading strings
-             * and sending back the capitalized version of the string.
-             */
+
             public void run() {
                 try {
                     netIO = new ServerNetworkIO(new BufferedReader(new InputStreamReader(socket.getInputStream())),
@@ -64,7 +56,6 @@ public class TicTacToeServer {
 
                     // Send a welcome message to the client.
                     netIO.write("Hello, you are client #" + clientNumber + ".\n");
-                    netIO.write("Enter a line with only a period to quit\n");
                     final int lang = Integer.parseInt(netIO.writeAndRead(
                             "Please choose the language/Wybierz język: 1 - English, 2 - Polish"));
                     UserIO io = new UserIO(System.out,System.in);
@@ -98,10 +89,6 @@ public class TicTacToeServer {
                 }
             }
 
-            /**
-             * Logs a simple message.  In this case we just write the
-             * message to the server applications standard output.
-             */
             private void log(String message) {
                 System.out.println(message);
             }

@@ -23,16 +23,11 @@ public class TicTacToeClient {
 
         // Make connection and initialize streams
         Socket socket = new Socket(serverAddress, 9898);
-//        in = new BufferedReader(
-//                new InputStreamReader(socket.getInputStream()));
-//        out = new PrintWriter(socket.getOutputStream(), true);
 
         userIO = new UserIO(System.out,System.in);
 
         netIO = new NetworkIO(new BufferedReader(new InputStreamReader(socket.getInputStream())),
                 new PrintWriter(socket.getOutputStream(), true));
-
-//        netIO = new NetworkIO(new BufferedReader(new InputStreamReader(System.in)), new PrintWriter(System.out));
 
         String responseRequiredPrefix = "RESPONSE_REQUIRED";
         String noResponsePrefix = "NO_RESPONSE";
@@ -48,9 +43,7 @@ public class TicTacToeClient {
         }
     }
 
-    /**
-     * Runs the client application.
-     */
+    //Runs the client application.
     public static void main(String[] args) throws Exception {
         TicTacToeClient client = new TicTacToeClient();
         client.connectToServer();
